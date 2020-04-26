@@ -187,58 +187,35 @@
                   <h5 class="widget-title font-alt">Blog Categories</h5>
                   <ul class="icon-list" v-for="(item,index) in blogCategories" :key="index">
                     <li><a href="#">{{item.articleType}} - {{item.articleNum}}</a></li>
-
                   </ul>
                 </div>
                 <div class="widget">
                   <h5 class="widget-title font-alt">Popular Posts</h5>
-                  <ul class="widget-posts">
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="static/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
+                  <ul class="widget-posts" >
+
+                    <li class="clearfix" v-for="(item,index) in popularPosts" :key="index">
+                      <div class="widget-posts-image"><a href="#"><img :src="item.img" alt="Post Thumbnail"/></a></div>
                       <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
-                        <div class="widget-posts-meta">23 january</div>
+                        <div class="widget-posts-title"><a href="#">{{item.name}}</a></div>
+                        <div class="widget-posts-meta">{{item.time}}</div>
                       </div>
                     </li>
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="static/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
-                        <div class="widget-posts-meta">15 February</div>
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="static/images/rp-3.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Eco bag Mockup</a></div>
-                        <div class="widget-posts-meta">21 February</div>
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="static/images/rp-4.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Bottle Mockup</a></div>
-                        <div class="widget-posts-meta">2 March</div>
-                      </div>
-                    </li>
+
                   </ul>
                 </div>
                 <div class="widget">
                   <h5 class="widget-title font-alt">Tag</h5>
-                  <div class="tags font-serif"><a href="#" rel="tag">Blog</a><a href="#" rel="tag">Photo</a><a href="#" rel="tag">Video</a><a href="#" rel="tag">Image</a><a href="#" rel="tag">Minimal</a><a href="#" rel="tag">Post</a><a href="#" rel="tag">Theme</a><a href="#" rel="tag">Ideas</a><a href="#" rel="tag">Tags</a><a href="#" rel="tag">Bootstrap</a><a href="#" rel="tag">Popular</a><a href="#" rel="tag">English</a>
+                  <div class="tags font-serif">
+                    <a href="#" rel="tag" v-for="(item,index) in tag" :key="index">{{item.name}}</a>
                   </div>
                 </div>
                 <div class="widget">
-                  <h5 class="widget-title font-alt">Text</h5>The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
+                  <h5 class="widget-title font-alt">Text</h5>{{broadsideText.text}}
                 </div>
                 <div class="widget">
                   <h5 class="widget-title font-alt">Recent Comments</h5>
                   <ul class="icon-list">
-                    <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-                    <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-                    <li>Andy on <a href="#">Eco bag Mockup</a></li>
-                    <li>Jack on <a href="#">Bottle Mockup</a></li>
-                    <li>Mark on <a href="#">Our trip to the Alps</a></li>
+                    <li v-for="(item,index) in recentComments" :key="index">{{item.userName}} <a href="#">{{item.userComments}}</a></li>
                   </ul>
                 </div>
               </div>
@@ -341,6 +318,9 @@ export default {
       articleList: [],//文章列表数据
       blogCategories:[],//文章类型数据
       popularPosts:[],//热门文章
+      tag:[],//标签
+      broadsideText:'',//侧边文本
+      recentComments:[],//最新评论
       isLoading: true
     };
   },
@@ -377,7 +357,13 @@ export default {
 
     this.blogCategories = indexList.data.data.blogCategories;
     
-    console.log(this.blogCategories);
+    this.popularPosts = indexList.data.data.popularPosts;
+
+    this.tag = indexList.data.data.tag;
+
+    this.broadsideText = indexList.data.data.broadsideText;
+
+    this.recentComments = indexList.data.data.recentComments;
   },
   beforeMount: function() {
     console.log("3-beforeMount 挂载之前");
