@@ -129,7 +129,7 @@
 
 
 
-              <div @click="clickArticle(index,item.id)" v-for="(item,index) in articleList" :key="index">
+              <div v-for="(item,index) in articleList" :key="index">
 
 
                     <router-link v-if="item.typeState == 1"  :to="{path: '/indexList/details', query:{}}" tag="div" class="">
